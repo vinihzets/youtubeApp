@@ -12,4 +12,9 @@ class HomeRepositoryImp implements HomeRepository {
   Future<Either<Failure, dynamic>> getPlayers() {
     return homeDataSources.getPlayers();
   }
+
+  @override
+  Future<Either<Failure, dynamic>> getSuggestions(String query) {
+    return homeDataSources.getSuggestions(query);
+  }
 }

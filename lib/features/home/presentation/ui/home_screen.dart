@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:youtube_app/features/home/presentation/widgets/data_search.dart';
@@ -49,10 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ],
-      ),
-      body: Center(
-        child: ElevatedButton(
-            onPressed: () => bloc.getYoutube(context), child: Text('teste')),
       ),
     );
   }

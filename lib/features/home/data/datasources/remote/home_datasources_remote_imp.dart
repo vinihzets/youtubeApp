@@ -30,4 +30,27 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
       return Left(RemoteFailure(message: e.message));
     }
   }
+
+  @override
+  Future<Either<Failure, dynamic>> getSuggestions(String query) async {
+    var url = Uri.parse(
+        'https://www.googleapis.com/youtube/v3/search?part=snippet&q=$query&type=video&key=AIzaSyDIUpoG88E1MB0u0KhcqV3bf35E8m4E3sk&maxResults=10');
+
+    try {
+      var response = await http.get(url);
+
+      final decode = jsonDecode(response.body);
+      inspect(decode);
+      if (response.statusCode == 200) {
+        List listVideos = decode['items'].map((map) {
+          final parser = VideoDto.fromJson(map);
+
+          return Right(parser);
+        }).toList();
+      }
+      return Right([]);
+    } on HttpException catch (e) {
+      return Left(RemoteFailure(message: e.message));
+    }
+  }
 }

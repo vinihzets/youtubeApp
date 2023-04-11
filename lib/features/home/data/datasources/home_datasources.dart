@@ -4,4 +4,5 @@ import 'package:youtube_app/features/home/domain/entities/video_entity.dart';
 
 abstract class HomeDataSources {
   Future<Either<Failure, List>> getPlayers();
+  Future<Either<Failure, dynamic>> getSuggestions(String query);
 }
