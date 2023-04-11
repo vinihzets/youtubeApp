@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:youtube_app/core/archiceture/bloc_state.dart';
+import 'package:youtube_app/core/architeture/bloc_state.dart';
 import 'package:youtube_app/core/helpers/hud_mixins.dart';
 import 'package:youtube_app/features/initialization/presentation/bloc/initialize_event.dart';
 
