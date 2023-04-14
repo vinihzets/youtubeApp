@@ -50,13 +50,15 @@ class DataSearch extends SearchDelegate<String> {
         if (state is BlocStableState) {
           final List searchs = state.data;
 
-          return ListView(
-            children: searchs
-                .map((e) => ListTile(
-                      leading: const Icon(Icons.arrow_forward_rounded),
-                      title: Text(e.title),
-                    ))
-                .toList(),
+          return ListView.builder(
+            itemCount: searchs.length,
+            itemBuilder: (context, index) {
+              final search = searchs[index];
+              return ListTile(
+                leading: Icon(Icons.arrow_forward),
+                title: Text(search.title),
+              );
+            },
           );
         } else {
           return const SizedBox.shrink();

@@ -62,45 +62,54 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (state) {
             if (state is BlocStableState) {
               final List video = state.data;
-              inspect(video);
-              return ListView(
-                children: video.map((e) {
-                  final controller = YoutubePlayerController(
-                    initialVideoId: e.videoId,
-                  );
-                  return YoutubePlayerBuilder(
-                    builder: (BuildContext context, _) {
-                      return GestureDetector(
-                        onTap: () async {
-                          try {
-                            controller.load(e.videoId);
 
-                            // controller.toggleFullScreenMode();
-                            await controller.play();
-                          } catch (e) {
-                            print(e);
-                          }
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 4.0, vertical: 12.0),
-                          child: Column(
-                            children: [
-                              Text(e.title),
-                              Image.network(e.imageHigh)
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    player: YoutubePlayer(controller: controller),
-                  );
-                }).toList(),
-              );
+              return _buildListView(video);
             } else {
               return const SizedBox.shrink();
             }
           }),
     );
   }
+}
+
+_buildListView(List video) {
+  return ListView(
+    children: video.map((e) {
+      final controller = YoutubePlayerController(
+        initialVideoId: e.videoId,
+        flags: const YoutubePlayerFlags(
+          mute: false,
+          autoPlay: true,
+          disableDragSeek: false,
+          loop: false,
+          isLive: false,
+          forceHD: false,
+          enableCaption: true,
+        ),
+      );
+      return YoutubePlayerBuilder(
+        builder: (BuildContext context, _) {
+          return GestureDetector(
+            onTap: () {
+              controller.reload();
+
+              controller.load(e.videoId);
+              controller.value.isPlaying
+                  ? controller.pause()
+                  : controller.play();
+              // controller.toggleFullScreenMode();
+            },
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 4.0, vertical: 12.0),
+              child: Column(
+                children: [Text(e.title), Image.network(e.imageHigh)],
+              ),
+            ),
+          );
+        },
+        player: YoutubePlayer(controller: controller),
+      );
+    }).toList(),
+  );
 }
