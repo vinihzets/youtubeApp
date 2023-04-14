@@ -40,15 +40,10 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
       var response = await http.get(url);
 
       final decode = jsonDecode(response.body);
-      inspect(decode);
-      if (response.statusCode == 200) {
-        List listVideos = decode['items'].map((map) {
-          final parser = VideoDto.fromJson(map);
-
-          return Right(parser);
-        }).toList();
-      }
-      return Right([]);
+      List listVideos = decode['items'].map((map) {
+        final parser = VideoDto.fromJson(map);
+      }).toList();
+      return Right(listVideos);
     } on HttpException catch (e) {
       return Left(RemoteFailure(message: e.message));
     }

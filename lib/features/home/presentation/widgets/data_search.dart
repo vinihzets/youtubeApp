@@ -53,7 +53,7 @@ class DataSearch extends SearchDelegate<String> {
           return ListView(
             children: searchs
                 .map((e) => ListTile(
-                      leading: Icon(Icons.arrow_forward_rounded),
+                      leading: const Icon(Icons.arrow_forward_rounded),
                       title: Text(e.title),
                     ))
                 .toList(),

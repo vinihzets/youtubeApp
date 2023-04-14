@@ -8,3 +8,9 @@ class HomeEventGetSuggestions implements HomeEvent {
 
   HomeEventGetSuggestions(this.context, this.query);
 }
+
+class HomeEventGetYoutubeVideos implements HomeEvent {
+  BuildContext context;
+
+  HomeEventGetYoutubeVideos(this.context);
+}

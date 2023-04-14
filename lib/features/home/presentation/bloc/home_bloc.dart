@@ -45,6 +45,8 @@ class HomeBloc with HudMixins {
   _mapListenEvent(HomeEvent event) {
     if (event is HomeEventGetSuggestions) {
       getSuggestions(event.context, event.query);
+    } else if (event is HomeEventGetYoutubeVideos) {
+      getYoutube(event.context);
     }
   }
 
@@ -52,7 +54,9 @@ class HomeBloc with HudMixins {
     final request = await getYoutubeUseCase.get();
     request.fold((left) {
       showSnack(context, left.message);
-    }, (right) {});
+    }, (right) {
+      dispatchState(BlocStableState(data: right));
+    });
   }
 
   getSuggestions(BuildContext context, String query) async {
