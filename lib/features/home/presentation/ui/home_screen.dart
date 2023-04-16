@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:youtube_app/core/architeture/bloc_builder.dart';
 import 'package:youtube_app/core/architeture/bloc_state.dart';
+import 'package:youtube_app/core/failure/failure.dart';
 import 'package:youtube_app/features/home/domain/entities/video_entity.dart';
 import 'package:youtube_app/features/home/presentation/bloc/home_event.dart';
 import 'package:youtube_app/features/home/presentation/widgets/data_search.dart';
@@ -63,7 +64,15 @@ class _HomeScreenState extends State<HomeScreen> {
             if (state is BlocStableState) {
               final List video = state.data;
 
-              return _buildListView(video);
+              return _buildData(video);
+            } else if (state is BlocLoadingState) {
+              return _buildLoading();
+            } else if (state is BlocEmptyState) {
+              return _buildEmpty();
+            } else if (state is BlocErrorState) {
+              final errorMessage = state.data;
+
+              return _buildError(errorMessage);
             } else {
               return const SizedBox.shrink();
             }
@@ -72,7 +81,31 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-_buildListView(List video) {
+_buildError(Failure errorMessage) {
+  return Center(
+    child: Container(
+      color: Colors.red,
+      child: Text(errorMessage.toString()),
+    ),
+  );
+}
+
+_buildEmpty() {
+  return const Center(
+    child: Text(
+      'A lista esta vazia',
+      style: TextStyle(fontSize: 20),
+    ),
+  );
+}
+
+_buildLoading() {
+  return const Center(
+    child: CircularProgressIndicator(),
+  );
+}
+
+_buildData(List video) {
   return ListView(
     children: video.map((e) {
       final controller = YoutubePlayerController(

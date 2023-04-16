@@ -21,8 +21,9 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
       final decode = jsonDecode(response.body);
 
       List listVideos = decode['items'].map((map) {
-        return VideoDto.fromJson(map);
-      }).toList();
+            return VideoDto.fromJson(map);
+          }).toList() ??
+          [];
       return Right(listVideos);
     } on HttpException catch (e) {
       return Left(RemoteFailure(message: e.message));
@@ -41,8 +42,9 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
       inspect(decode);
 
       List listVideos = decode['items'].map((map) {
-        return VideoDto.fromJson(map);
-      }).toList();
+            return VideoDto.fromJson(map);
+          }).toList() ??
+          [];
 
       return Right(listVideos);
     } on HttpException catch (e) {

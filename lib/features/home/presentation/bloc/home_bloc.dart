@@ -51,6 +51,7 @@ class HomeBloc with HudMixins {
   }
 
   getYoutube(BuildContext context) async {
+    dispatchState(BlocLoadingState());
     final request = await getYoutubeUseCase.get();
     request.fold((left) {
       showSnack(context, left.message);
