@@ -6,6 +6,7 @@ import 'package:youtube_app/core/architeture/bloc_state.dart';
 import 'package:youtube_app/features/home/data/dto/video_dto.dart';
 import 'package:youtube_app/features/home/presentation/bloc/home_bloc.dart';
 import 'package:youtube_app/features/home/presentation/bloc/home_event.dart';
+import 'package:youtube_app/features/home/presentation/ui/video_details_screen.dart';
 
 class DataSearch extends SearchDelegate<String> {
   HomeBloc bloc;
@@ -38,7 +39,7 @@ class DataSearch extends SearchDelegate<String> {
     Future.delayed(Duration.zero).then(
       (_) => close(context, query),
     );
-    return Container();
+    return const SizedBox.shrink();
   }
 
   @override
@@ -49,13 +50,16 @@ class DataSearch extends SearchDelegate<String> {
       builder: (state) {
         if (state is BlocStableState) {
           final List searchs = state.data;
-
           return ListView.builder(
             itemCount: searchs.length,
             itemBuilder: (context, index) {
               final search = searchs[index];
               return ListTile(
-                leading: Icon(Icons.arrow_forward),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => VideoDetailsScreen(video: search)));
+                },
+                leading: const Icon(Icons.arrow_forward),
                 title: Text(search.title),
               );
             },
