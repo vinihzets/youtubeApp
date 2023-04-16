@@ -1,13 +1,10 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:either_dart/either.dart';
 import 'package:youtube_app/core/failure/failure.dart';
 import 'package:youtube_app/features/home/data/datasources/home_datasources.dart';
 import 'package:http/http.dart' as http;
 import 'package:youtube_app/features/home/data/dto/video_dto.dart';
-import 'package:youtube_app/features/home/domain/entities/video_entity.dart';
 
 class HomeDataSourcesRemoteImp implements HomeDataSources {
   @override
@@ -39,7 +36,6 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
       var response = await http.get(url);
 
       final decode = jsonDecode(response.body);
-      inspect(decode);
 
       List listVideos = decode['items'].map((map) {
             return VideoDto.fromJson(map);

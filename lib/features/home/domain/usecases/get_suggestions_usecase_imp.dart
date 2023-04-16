@@ -8,6 +8,7 @@ class GetSuggestionsUseCaseImp implements GetSuggestionsUseCase {
 
   GetSuggestionsUseCaseImp(this.homeRepository);
 
+  @override
   Future<Either<Failure, dynamic>> getSuggestions(String query) {
     return homeRepository.getSuggestions(query);
   }

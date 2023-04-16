@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:youtube_app/core/architeture/bloc_builder.dart';
 import 'package:youtube_app/core/architeture/bloc_state.dart';
-import 'package:youtube_app/features/home/data/dto/video_dto.dart';
 import 'package:youtube_app/features/home/presentation/bloc/home_bloc.dart';
 import 'package:youtube_app/features/home/presentation/bloc/home_event.dart';
 import 'package:youtube_app/features/home/presentation/ui/video_details_screen.dart';

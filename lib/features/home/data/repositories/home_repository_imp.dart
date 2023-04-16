@@ -1,7 +1,6 @@
 import 'package:either_dart/either.dart';
 import 'package:youtube_app/core/failure/failure.dart';
 import 'package:youtube_app/features/home/data/datasources/home_datasources.dart';
-import 'package:youtube_app/features/home/domain/entities/video_entity.dart';
 import 'package:youtube_app/features/home/domain/repositories/home_repository.dart';
 
 class HomeRepositoryImp implements HomeRepository {
