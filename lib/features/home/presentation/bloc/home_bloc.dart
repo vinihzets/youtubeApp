@@ -54,7 +54,11 @@ class HomeBloc with HudMixins {
     request.fold((left) {
       dispatchState(BlocErrorState(data: left.message));
     }, (right) {
-      dispatchState(BlocStableState(data: right));
+      if (right.isNotEmpty) {
+        dispatchState(BlocStableState(data: right));
+      } else if (right.isEmpty) {
+        dispatchState(BlocEmptyState(data: right));
+      }
     });
   }
 

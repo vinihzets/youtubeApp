@@ -17,11 +17,14 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
 
       final decode = jsonDecode(response.body);
 
-      List listVideos = decode['items'].map((map) {
-            return VideoDto.fromJson(map);
-          }).toList() ??
-          [];
-      return Right(listVideos);
+      if (response.statusCode == 200) {
+        List listVideos = decode['items'].map((map) {
+              return VideoDto.fromJson(map);
+            }).toList() ??
+            [];
+        return Right(listVideos);
+      }
+      return const Right([]);
     } on HttpException catch (e) {
       return Left(RemoteFailure(message: e.message));
     }
@@ -37,12 +40,15 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
 
       final decode = jsonDecode(response.body);
 
-      List listVideos = decode['items'].map((map) {
-            return VideoDto.fromJson(map);
-          }).toList() ??
-          [];
+      if (response.statusCode == 200) {
+        List listVideos = decode['items'].map((map) {
+              return VideoDto.fromJson(map);
+            }).toList() ??
+            [];
 
-      return Right(listVideos);
+        return Right(listVideos);
+      }
+      return const Right([]);
     } on HttpException catch (e) {
       return Left(RemoteFailure(message: e.message));
     }

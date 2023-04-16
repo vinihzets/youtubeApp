@@ -91,7 +91,7 @@ _buildEmpty() {
   return const Center(
     child: Text(
       'A lista esta vazia',
-      style: TextStyle(fontSize: 20),
+      style: TextStyle(fontSize: 30),
     ),
   );
 }
